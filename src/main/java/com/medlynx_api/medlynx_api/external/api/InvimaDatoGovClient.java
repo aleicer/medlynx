@@ -48,12 +48,13 @@ public class InvimaDatoGovClient {
     }
 
 
-    public List<InvimaDatosGovSuggestionDTO> getMedicinesInvimaVigente(String search, String type) {
+    public List<InvimaDatosGovSuggestionDTO> getMedicinesInvimaDatosGov(String search, String type) {
         String baseUrl = urlMap.getOrDefault(type, BASE_URL_OTRO);
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-App-Token", apiKey);
         HttpEntity<String> entity = new HttpEntity<>(headers);
         String url = baseUrl + "?$query=SELECT * ORDER BY `:id` ASC NULL LAST SEARCH \"" + search + "\" LIMIT 50 OFFSET 0&";
+        System.out.println(url);
         ResponseEntity<InvimaDatosGovResponseDTO[]> response = this.restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -65,5 +66,31 @@ public class InvimaDatoGovClient {
                 .map(InvimaDatosGovSuggestionDTO::new)
                 .toArray(InvimaDatosGovSuggestionDTO[]::new);
         return Arrays.asList(invimaDatosGovSuggestionDTO);
+    }
+
+    public InvimaDatosGovResponseDTO getMedicinesInvimaDatosGovById(
+            String expediente,
+            String consecutivocum,
+            String nombrerol,
+            String type
+    ) {
+        String baseUrl = urlMap.getOrDefault(type, BASE_URL_OTRO);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-App-Token", apiKey);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = baseUrl + "?$query=SELECT * WHERE `expediente` = '" + expediente + "' AND `consecutivocum` = " +
+                consecutivocum + " AND `nombrerol` = '" + nombrerol + "'&";
+        System.out.println(url);
+        ResponseEntity<InvimaDatosGovResponseDTO[]> response = this.restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                entity,
+                InvimaDatosGovResponseDTO[].class
+        );
+        if (response.getBody() != null && response.getBody().length > 0) {
+            return response.getBody()[0];
+        } else {
+            return null;
+        }
     }
 }

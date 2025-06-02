@@ -13,6 +13,7 @@ public class InvimaDatosGovSuggestionDTO {
     private final Integer consecutivocum;
     private final String descripcioncomercial;
     private final String atc;
+    private String nombrerol;
 
     public InvimaDatosGovSuggestionDTO(InvimaDatosGovResponseDTO invimaDatosGovResponseDTO) {
         this.atc = invimaDatosGovResponseDTO.getAtc();
@@ -22,6 +23,7 @@ public class InvimaDatosGovSuggestionDTO {
         this.titular = invimaDatosGovResponseDTO.getTitular();
         this.producto = invimaDatosGovResponseDTO.getProducto();
         this.expediente = invimaDatosGovResponseDTO.getExpediente();
+        this.nombrerol = invimaDatosGovResponseDTO.getNombrerol();
     }
 
 }
