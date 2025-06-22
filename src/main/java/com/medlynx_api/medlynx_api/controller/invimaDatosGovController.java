@@ -34,9 +34,9 @@ public class invimaDatosGovController {
     public InvimaDatosGovResponseDTO getMedicineByCriteria(
             @RequestParam(name = "expediente", required = false) String expediente,
             @RequestParam(name = "consecutivocum", required = false) String consecutivocum,
-            @RequestParam(name = "nombrerol", required = false) String nombrerol,
+            @RequestParam(name = "cantidadcum", required = false) String cantidadcum,
             @RequestParam(name = "type", required = false, defaultValue = "vigente") String type
     ) {
-        return invimaDatoGovClient.getMedicinesInvimaDatosGovById(expediente, consecutivocum, nombrerol, type);
+        return invimaDatoGovClient.getMedicinesInvimaDatosGovById(expediente, consecutivocum, cantidadcum, type);
     }
 }

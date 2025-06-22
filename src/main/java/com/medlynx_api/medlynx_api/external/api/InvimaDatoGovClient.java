@@ -53,7 +53,7 @@ public class InvimaDatoGovClient {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-App-Token", apiKey);
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = baseUrl + "?$query=SELECT * ORDER BY `:id` ASC NULL LAST SEARCH \"" + search + "\" LIMIT 50 OFFSET 0&";
+        String url = baseUrl + "?$query=SELECT * ORDER BY `:id` ASC NULL LAST SEARCH \"" + search + "\" LIMIT 60 OFFSET 0&";
         System.out.println(url);
         ResponseEntity<InvimaDatosGovResponseDTO[]> response = this.restTemplate.exchange(
                 url,
@@ -65,13 +65,15 @@ public class InvimaDatoGovClient {
         InvimaDatosGovSuggestionDTO[] invimaDatosGovSuggestionDTO = Arrays.stream(response.getBody())
                 .map(InvimaDatosGovSuggestionDTO::new)
                 .toArray(InvimaDatosGovSuggestionDTO[]::new);
-        return Arrays.asList(invimaDatosGovSuggestionDTO);
+        return Arrays.stream(invimaDatosGovSuggestionDTO)
+                .filter(dto -> "No".equalsIgnoreCase(dto.getMuestramedica()))
+                .toList();
     }
 
     public InvimaDatosGovResponseDTO getMedicinesInvimaDatosGovById(
             String expediente,
             String consecutivocum,
-            String nombrerol,
+            String cantidadcum,
             String type
     ) {
         String baseUrl = urlMap.getOrDefault(type, BASE_URL_OTRO);
@@ -79,7 +81,7 @@ public class InvimaDatoGovClient {
         headers.set("X-App-Token", apiKey);
         HttpEntity<String> entity = new HttpEntity<>(headers);
         String url = baseUrl + "?$query=SELECT * WHERE `expediente` = '" + expediente + "' AND `consecutivocum` = " +
-                consecutivocum + " AND `nombrerol` = '" + nombrerol + "'&";
+                consecutivocum + " AND `cantidadcum` = '" + cantidadcum + "'&";
         System.out.println(url);
         ResponseEntity<InvimaDatosGovResponseDTO[]> response = this.restTemplate.exchange(
                 url,

@@ -11,9 +11,11 @@ public class InvimaDatosGovSuggestionDTO {
     private final String titular;
     private final String registrosanitario;
     private final Integer consecutivocum;
+    private final Integer cantidadcum;
     private final String descripcioncomercial;
     private final String atc;
     private String nombrerol;
+    private String muestramedica;
 
     public InvimaDatosGovSuggestionDTO(InvimaDatosGovResponseDTO invimaDatosGovResponseDTO) {
         this.atc = invimaDatosGovResponseDTO.getAtc();
@@ -24,6 +26,8 @@ public class InvimaDatosGovSuggestionDTO {
         this.producto = invimaDatosGovResponseDTO.getProducto();
         this.expediente = invimaDatosGovResponseDTO.getExpediente();
         this.nombrerol = invimaDatosGovResponseDTO.getNombrerol();
+        this.muestramedica = invimaDatosGovResponseDTO.getMuestramedica();
+        this.cantidadcum = invimaDatosGovResponseDTO.getCantidadcum();
     }
 
 }
