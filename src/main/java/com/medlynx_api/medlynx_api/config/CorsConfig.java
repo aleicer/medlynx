@@ -16,7 +16,7 @@ public class CorsConfig {
                 registry.addMapping("/**") // Aplica a todos los endpoints
                         .allowedOrigins(
                                 "http://localhost:3000",         // Frontend local
-                                "https://medlynx.vercel.app"     // Producción en Vercel (ajústalo según tu dominio real)
+                                "https://medlynx-web.onrender.com"     // Producción en Vercel (ajústalo según tu dominio real)
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
